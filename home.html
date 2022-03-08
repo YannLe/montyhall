@@ -1,0 +1,634 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!-- saved from url=(0061)https://math.andyou.com/tools/montyhallsimulator/montysim.htm -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Monty Hall Game</title>
+
+    <meta http-equiv="Content-language" content="fr">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <style type="text/css">
+        <!--
+        body, select, input {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #333333;
+            margin-top: 0px;
+        }
+
+        body {
+            background-color: #ffffff;
+        }
+
+        a {
+            color: #3333ff;
+            text-decoration: none;
+        }
+
+        div#alltihop {
+            position: relative;
+            width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            left: -25px;
+        }
+
+        div#Instruct {
+            position: absolute;
+            left: 25px;
+            top: 320px;
+            width: 650px;
+            height: 50px;
+            visibility: visible;
+            font-weight: bold;
+            color: #000000;
+            font-size: 18pt;
+            text-align: center;
+        }
+
+        div#header1, h1.subpage-header {
+            position: absolute;
+            left: 25px;
+            top: 0px;
+            width: 650px;
+            height: 65px;
+            visibility: visible;
+        }
+
+        div#div8, div#div9 {
+            position: absolute;
+            top: 415px;
+            width: 300px;
+            height: 65px;
+            visibility: hidden;
+            font-size: 12pt;
+            text-align: center;
+            z-index: 2;
+        }
+
+        div#div8 {
+            left: 25px;
+        }
+
+        div#div9 {
+            left: 375px;
+        }
+
+        div#div10 {
+            position: absolute;
+            left: 45px;
+            top: 500px;
+            width: 375px;
+            height: 30px;
+            visibility: hidden;
+            font-size: 10pt;
+            text-align: left;
+            z-index: 2;
+        }
+
+        div#div11 {
+            position: absolute;
+            left: 400px;
+            top: 500px;
+            width: 275px;
+            height: 30px;
+            visibility: hidden;
+            font-size: 10pt;
+            text-align: center;
+            z-index: 2;
+        }
+
+        div#helptext {
+            position: absolute;
+            left: 25px;
+            top: 100px;
+            width: 650px;
+            height: 390px;
+            visibility: hidden;
+            background-color: #ffffff;
+            z-index: 5;
+            font-size: 75%;
+        }
+
+        div#br1, div#br2 {
+            position: absolute;
+            left: 25px;
+            width: 650px;
+            height: 1px;
+            background-color: #0d4d9c;
+        }
+
+        div#br1 {
+            top: 400px;
+        }
+
+        div#br2 {
+            top: 480px;
+        }
+
+        .box {
+            position: absolute;
+            left: 250px;
+            top: 100px;
+            width: 200px;
+            height: 200px;
+            visibility: hidden;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #0d4d9c;
+            font-size: 120pt;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .hand {
+            cursor: pointer;
+        }
+
+
+        .mnublue {
+            color: #0A4E9B;
+        }
+
+        -->
+    </style>
+
+</head>
+
+<body onload="PrepareNewRound(); document.getElementById(&#39;div8&#39;).style.visibility=&#39;visible&#39;;  document.getElementById(&#39;div9&#39;).style.visibility=&#39;visible&#39;; document.getElementById(&#39;div10&#39;).style.visibility=&#39;visible&#39;; document.getElementById(&#39;div11&#39;).style.visibility=&#39;visible&#39;; document.getElementById(&#39;div12&#39;).style.visibility=&#39;visible&#39;; document.forms.CheatAndInfo.ClearStat.disabled=true; return true;">
+<noscript><h1>Sorry, this program require Javascript, it&nbsp;will&nbsp; not work for you</h1></noscript>
+<div id="alltihop">
+    <h1 class="subpage-header mnublue">Jeu Monty Hall </h1>
+    <!--<div id="header1"><img src="popup_box_monty_hall.png" width="275" height="65" alt="Monty Hall"><img src="header_background.png" width="375" height="65" alt=""></div>-->
+    <div id="qmC" class="box hand" onmouseover="if(Mode&lt;9){this.style.color=&#39;#000000&#39;;} return true;"
+         onmouseout="this.style.color=&#39;#ffffff&#39;; return true;"
+         onclick="if(!AutoRunning){Mclick(&#39;C&#39;);} return true;"
+         style="left: 25px; visibility: visible; color: rgb(255, 255, 255);">?
+    </div>
+    <div id="qmG1" class="box hand" onmouseover="if(Mode&lt;9){this.style.color=&#39;#000000&#39;;} return true;"
+         onmouseout="this.style.color=&#39;#ffffff&#39;; return true;"
+         onclick="if(!AutoRunning){Mclick(&#39;G1&#39;);} return true;"
+         style="left: 250px; visibility: visible; color: rgb(255, 255, 255);">?
+    </div>
+    <div id="qmG2" class="box hand" onmouseover="if(Mode&lt;9){this.style.color=&#39;#000000&#39;;} return true;"
+         onmouseout="this.style.color=&#39;#ffffff&#39;; return true;"
+         onclick="if(!AutoRunning){Mclick(&#39;G2&#39;);} return true;"
+         style="left: 475px; visibility: visible; color: rgb(255, 255, 255);">?
+    </div>
+
+    <div id="photoC" class="box" onmouseout="if(Mode==2){Mode2Act();} return true;"
+         onclick="if(Mode==2 &amp;&amp; !AutoRunning){Mode2Act();} return true;"
+         style="left: 25px; visibility: hidden;"><img src="./images/car.png" width="200" height="200" alt="Car"></div>
+    <div id="photoG1" class="box" onmouseout="if(Mode==2){Mode2Act();} return true;"
+         onclick="if(Mode==2 &amp;&amp; !AutoRunning){Mode2Act();} return true;"
+         style="left: 250px; visibility: hidden;"><img src="./images/goat.png" width="200" height="200" alt="Goat">
+    </div>
+    <div id="photoG2" class="box" onmouseout="if(Mode==2){Mode2Act();} return true;"
+         onclick="if(Mode==2 &amp;&amp; !AutoRunning){Mode2Act();} return true;"
+         style="left: 475px; visibility: hidden;"><img src="./images/goat2.png" width="200" height="200" alt="Goat">
+    </div>
+
+    <div id="Instruct">Select one of the three boxes above</div>
+
+    <div id="br1">&nbsp;</div>
+
+    <div id="div8" style="visibility: visible;">
+        <b>Stratégie "garder": <span id="WithKeep">0 parties</span></b><br>
+        &nbsp;&nbsp; Victoires: <span id="KeepWin">0</span> <span id="Line2">voitures</span> <span
+            id="Line3">(0%)</span> &nbsp;
+        <br>
+        Défaites: <span id="KeepLose">0</span> <span id="Line4">chèvres</span> <span id="Line5">(0%)</span>
+    </div>
+
+    <div id="div9" style="visibility: visible;">
+        <b>Stratégie "changer": <span id="WithChange">0 parties</span></b><br>
+        Victoires: <span id="ChangeWin">0</span> <span id="Line6">voitures</span> <span id="Line7">(0%)</span> &nbsp;
+        <br>
+        Defaites: <span id="ChangeLose">0</span> <span id="Line8">chèvres</span> <span id="Line9">(0%)</span>
+    </div>
+
+    <div id="br2">&nbsp;</div>
+
+    <div id="div10" style="visibility: visible;">
+        <form name="AutoRun" action="https://math.andyou.com/tools/montyhallsimulator/montysim.htm">
+            <div>Jouer <select name="Cycles" size="1">
+                <option value="10">10</option>
+                <option value="100" selected="">100</option>
+                <option value="1000">1000</option>
+            </select> fois et <select name="Decision">
+                <option value="0">Garder</option>
+                <option value="1">Changer</option>
+            </select> le choix: <input type="button" value="Lancer" name="Start" id="Start"
+                                       title="Start/stop automatic run"
+                                       onclick="RunButton(this.form.Cycles.value,this.form.Decision.value); return true;">
+            </div>
+        </form>
+    </div>
+
+    <div id="div11" style="visibility: visible;">
+        <form name="CheatAndInfo" action="https://math.andyou.com/tools/montyhallsimulator/montysim.htm">
+            <div> &nbsp; &nbsp; &nbsp; <input type="button" name="ClearStat" id="ClearStat" value="Réinitialiser"
+                                              title="Clear the counters above" onclick="return ClearCounters();"></div>
+        </form>
+    </div>
+
+
+</div>
+
+<div style="max-height: 350px; width: 350px;position: absolute;top:600px;left:100px;">
+    <canvas id="chartKeep"></canvas>
+</div>
+
+
+<div style="max-height: 350px; width: 350px;position: absolute;top:600px;right:100px;">
+    <canvas id="chartChange"></canvas>
+</div>
+<script type="text/javascript">
+
+    CarPos = 0;
+    Goat1Pos = 1;
+    Goat2Pos = 2;
+    Mode = FirstChoice = GuessesKeep = KeepWin = KeepLose = GuessesChange = ChangeWin = ChangeLose = TheRandom = RunAutoCycles = 0;
+    Cheating = AutoRunning = false;
+
+
+    // --- --- --- --- --- --- --- --- --- ---
+
+    function ClearCounters() {
+        if (confirm("Voulez vous remettre les statistiques à zéro ?")) {
+            document.forms.CheatAndInfo.ClearStat.disabled = true;
+            GuessesKeep = KeepWin = KeepLose = GuessesChange = ChangeWin = ChangeLose = 0;
+            document.getElementById("WithKeep").innerHTML = "0 parties";
+            document.getElementById("KeepWin").innerHTML = 0;
+            document.getElementById("KeepLose").innerHTML = 0;
+            document.getElementById("WithChange").innerHTML = "0 parties";
+            document.getElementById("ChangeWin").innerHTML = 0;
+            document.getElementById("ChangeLose").innerHTML = 0;
+            document.getElementById("Line2").innerHTML = "voitures";
+            document.getElementById("Line3").innerHTML = "(0%)";
+            document.getElementById("Line4").innerHTML = "chèvres";
+            document.getElementById("Line5").innerHTML = "(0%)";
+            document.getElementById("Line6").innerHTML = "voitures";
+            document.getElementById("Line7").innerHTML = "(0%)";
+            document.getElementById("Line8").innerHTML = "chèvres";
+            document.getElementById("Line9").innerHTML = "(0%)";
+        }
+        return true;
+    }
+
+    // --- --- --- --- --- --- --- --- --- ---
+
+    function Mclick(pos) {
+        if (!AutoRunning) {
+            document.forms.AutoRun.Start.disabled = true;
+        } // Disable AutoRun
+        if (Mode == 1) {
+            Answer = Mode1Act(pos);
+        }
+        if (Mode == 0) {
+            Answer = Mode0Act(pos);
+        }
+        return Answer;
+    }
+
+    // --- --- --- --- --- --- --- --- --- ---
+
+    function Mode0Act(pos) {
+        Mode = 9;
+        document.getElementById("qm" + pos).innerHTML = "!";
+        PosToShow = (pos == "G1" || (pos == "C" && RandomNumber(2) == 0) ? "G2" : "G1");
+        document.getElementById("photo" + PosToShow).style.visibility = 'visible';
+        document.getElementById("qm" + PosToShow).style.visibility = 'hidden';
+        FirstChoice = pos;
+        WriteMode1Text();
+        Mode = 1;
+        return PosToShow;
+    }
+
+    // --- --- --- --- --- --- --- --- --- ---
+
+    function Mode1Act(pos) {
+        Mode = 9;
+        document.forms.CheatAndInfo.ClearStat.disabled = false;
+        document.getElementById("photoC").style.visibility = 'visible';
+        document.getElementById("photoG1").style.visibility = 'visible';
+        document.getElementById("photoG2").style.visibility = 'visible';
+        document.getElementById("qmC").style.visibility = 'hidden';
+        document.getElementById("qmG1").style.visibility = 'hidden';
+        document.getElementById("qmG2").style.visibility = 'hidden';
+        document.getElementById("Instruct").innerHTML = (pos == FirstChoice ? "Vous avez gardé votre choix" : "Vous avez changé votre choix") + ", " + (pos == "C" ? "vous gagnez la voiture !" : "vous perdez");
+
+        if (pos == FirstChoice) { // Keep choice
+            GuessesKeep++;
+            document.getElementById("WithKeep").innerHTML = GuessesKeep + (GuessesKeep == 1 ? " partie" : " parties");
+            if (pos == "C") { // Car
+                KeepWin++;
+                document.getElementById("KeepWin").innerHTML = KeepWin;
+                if (KeepWin == 1) {
+                    document.getElementById("Line2").innerHTML = "voiture";
+                }
+                if (KeepWin == 2) {
+                    document.getElementById("Line2").innerHTML = "voitures";
+                }
+            } else { // Goat
+                KeepLose++;
+                document.getElementById("KeepLose").innerHTML = KeepLose;
+                if (KeepLose == 1) {
+                    document.getElementById("Line4").innerHTML = "chèvre";
+                }
+                if (KeepLose == 2) {
+                    document.getElementById("Line4").innerHTML = "chèvres";
+                }
+            }
+            document.getElementById("Line3").innerHTML = "(" + Math.round(100 * KeepWin / GuessesKeep) + "%)";
+            document.getElementById("Line5").innerHTML = "(" + (100 - Math.round(100 * KeepWin / GuessesKeep)) + "%)";
+
+        } else { // Change choice
+            GuessesChange++;
+            document.getElementById("WithChange").innerHTML = GuessesChange + (GuessesChange == 1 ? " partie" : " parties");
+            if (pos == "C") { // Car
+                ChangeWin++;
+                document.getElementById("ChangeWin").innerHTML = ChangeWin;
+                if (ChangeWin == 1) {
+                    document.getElementById("Line6").innerHTML = "voiture";
+                }
+                if (ChangeWin == 2) {
+                    document.getElementById("Line6").innerHTML = "voitures";
+                }
+            } else { // Goat
+                ChangeLose++;
+                document.getElementById("ChangeLose").innerHTML = ChangeLose;
+                if (ChangeLose == 1) {
+                    document.getElementById("Line8").innerHTML = "chèvre";
+                }
+                if (ChangeLose == 2) {
+                    document.getElementById("Line8").innerHTML = "chèvres";
+                }
+            }
+            document.getElementById("Line7").innerHTML = "(" + Math.round(100 * ChangeWin / GuessesChange) + "%)";
+            document.getElementById("Line9").innerHTML = "(" + (100 - Math.round(100 * ChangeWin / GuessesChange)) + "%)";
+        }
+        Mode = 2;
+        return true;
+    }
+
+    // --- --- --- --- --- --- --- --- --- ---
+
+    function Mode2Act() { // Perform moving
+        Mode = 9;
+        if (document.getElementById("photoC").style.visibility == "visible") {
+            Cpos = document.getElementById("photoC").style.left;
+            Cpos = parseInt(Cpos.substring(0, Cpos.indexOf("px")));
+            G1pos = document.getElementById("photoG1").style.left;
+            G1pos = parseInt(G1pos.substring(0, G1pos.indexOf("px")));
+            G2pos = document.getElementById("photoG2").style.left;
+            G2pos = parseInt(G2pos.substring(0, G2pos.indexOf("px")));
+            if (Cpos < 250) {
+                document.getElementById("photoC").style.left = (Cpos + 5) + "px";
+            }
+            if (Cpos > 250) {
+                document.getElementById("photoC").style.left = (Cpos - 5) + "px";
+            }
+            if (G1pos < 250) {
+                document.getElementById("photoG1").style.left = (G1pos + 5) + "px";
+            }
+            if (G1pos > 250) {
+                document.getElementById("photoG1").style.left = (G1pos - 5) + "px";
+            }
+            if (G2pos < 250) {
+                document.getElementById("photoG2").style.left = (G2pos + 5) + "px";
+            }
+            if (G2pos > 250) {
+                document.getElementById("photoG2").style.left = (G2pos - 5) + "px";
+            }
+            if (G1pos == G2pos) { // Has reached mid pos
+                document.getElementById("qmC").style.left = "250px";
+                document.getElementById("qmG1").style.left = "250px";
+                document.getElementById("qmG2").style.left = "250px";
+                document.getElementById("qmC").innerHTML = "?";
+                document.getElementById("qmG1").innerHTML = "?";
+                document.getElementById("qmG2").innerHTML = "?";
+                document.getElementById("qmC").style.visibility = 'visible';
+                document.getElementById("qmG1").style.visibility = 'visible';
+                document.getElementById("qmG2").style.visibility = 'visible';
+                document.getElementById("photoC").style.visibility = 'hidden';
+                document.getElementById("photoG1").style.visibility = 'hidden';
+                document.getElementById("photoG2").style.visibility = 'hidden';
+                document.getElementById("Instruct").innerHTML = "";
+                setTimeout('Mode2Act();', 222);
+            } else {
+                setTimeout('Mode2Act();', 1);
+            }
+        } else {
+            G1pos = document.getElementById("qmG1").style.left;
+            G1pos = parseInt(G1pos.substring(0, G1pos.indexOf("px")));
+            document.getElementById("qmG1").style.left = (G1pos - 5) + "px";
+            G2pos = document.getElementById("qmG2").style.left;
+            G2pos = parseInt(G2pos.substring(0, G2pos.indexOf("px")));
+            document.getElementById("qmG2").style.left = (G2pos + 5) + "px";
+            if (G1pos > 25) {
+                setTimeout('Mode2Act();', 1);
+            } else {
+                setTimeout('PrepareNewRound();', 2);
+            }
+        }
+        return true;
+    }
+
+    // --- --- --- --- --- --- --- --- --- ---
+
+    function PrepareNewRound() {
+        ScramblePositions();
+        document.getElementById("qmC").innerHTML = "?";
+        document.getElementById("qmG1").innerHTML = "?";
+        document.getElementById("qmG2").innerHTML = "?";
+        document.getElementById("qmC").style.visibility = 'visible';
+        document.getElementById("photoC").style.visibility = 'hidden';
+        document.getElementById("qmG1").style.visibility = 'visible';
+        document.getElementById("photoG1").style.visibility = 'hidden';
+        document.getElementById("qmG2").style.visibility = 'visible';
+        document.getElementById("photoG2").style.visibility = 'hidden';
+        document.getElementById("Instruct").innerHTML = "Selectionner une des trois portes ci dessus";
+        Mode = 0;
+        if (Cheating) {
+            SelectCheating();
+        }
+        document.forms.AutoRun.Start.disabled = false;
+        return true;
+    }
+
+    // --- --- --- --- --- --- --- --- --- ---
+
+    function RandomNumber(SpanWidth) { // This function returns a random number (well, a rather random one)
+        if (TheRandom <= SpanWidth) {
+            Now = new Date();
+            TheRandom = SpanWidth + Math.round(Math.pow(Math.round(Now.getTime()) % 131071, Math.PI));
+        }
+        ReturnValue = TheRandom % SpanWidth;
+        TheRandom = Math.ceil(TheRandom / SpanWidth);
+        return ReturnValue;
+    }
+
+    // --- --- --- --- --- --- --- --- --- ---
+
+    function RunAuto(HowToChoose) {
+        Mode = 9;
+        PrepareNewRound();
+        FirstChoice = RandomNumber(3);
+        FirstChoice = (FirstChoice > 0 ? "G" + FirstChoice : "C");
+        Mode = 0;
+        RevealedGoat = Mclick(FirstChoice);
+        Mode = 9;
+        SecondChoice = (HowToChoose == 1 ? (FirstChoice == "C" ? "G" + (2 - eval(RevealedGoat.charAt(1))) : "C") : FirstChoice);
+        Mode = 1;
+        RevealedGoat = Mclick(SecondChoice);
+        Mode = 9;
+        RunAutoCycles--;
+        if (RunAutoCycles > 0) {
+            setTimeout("RunAuto(" + HowToChoose + ");", 1);
+        } else {
+            PrepareNewRound(); // Scramble
+            RunEnd();
+        }
+        return true;
+    }
+
+    // --- --- --- --- --- --- --- --- --- ---
+
+    function RunButton(CyclesToRun, HowToChoose) {
+        if (AutoRunning) {
+            RunEnd();
+        } else {
+            AutoRunning = true;
+            document.forms.AutoRun.Start.value = "Stop";
+            document.forms.AutoRun.Cycles.disabled = true;
+            document.forms.AutoRun.Decision.disabled = true;
+            RunAutoCycles = CyclesToRun;
+            RunAuto(HowToChoose);
+        }
+        chartKeep.update();
+        chartChange.update();
+        return true;
+    }
+
+    // --- --- --- --- --- --- --- --- --- ---
+
+    function RunEnd() { // Finish AutoRun
+        RunAutoCycles = 0;
+        document.forms.AutoRun.Start.value = "Lancer";
+        document.forms.AutoRun.Cycles.disabled = false;
+        document.forms.AutoRun.Decision.disabled = false;
+        AutoRunning = false;
+
+        chartChange.data.datasets[0].data[0] = document.getElementById("ChangeWin").innerText;
+        chartChange.data.datasets[0].data[1] = document.getElementById("ChangeLose").innerText;
+        chartKeep.data.datasets[0].data[0] = document.getElementById("KeepWin").innerText;
+        chartKeep.data.datasets[0].data[1] = document.getElementById("KeepLose").innerText;
+
+        chartKeep.update();
+        chartChange.update();
+        return true;
+    }
+
+    // --- --- --- --- --- --- --- --- --- ---
+
+    function ScramblePositions() {
+        CarPos = RandomNumber(3);
+        if (RandomNumber(2) == 0) {
+            Goat1Pos = CarPos + 1;
+            Goat2Pos = CarPos + 2;
+        } else {
+            Goat1Pos = CarPos + 2;
+            Goat2Pos = CarPos + 1;
+        }
+        if (Goat1Pos > 2) {
+            Goat1Pos -= 3;
+        }
+        if (Goat2Pos > 2) {
+            Goat2Pos -= 3;
+        }
+        document.getElementById("qmC").style.left = 25 + 225 * CarPos + "px";
+        document.getElementById("photoC").style.left = 25 + 225 * CarPos + "px";
+        document.getElementById("qmG1").style.left = 25 + 225 * Goat1Pos + "px";
+        document.getElementById("photoG1").style.left = 25 + 225 * Goat1Pos + "px";
+        document.getElementById("qmG2").style.left = 25 + 225 * Goat2Pos + "px";
+        document.getElementById("photoG2").style.left = 25 + 225 * Goat2Pos + "px";
+        return true;
+    }
+
+    // --- --- --- --- --- --- --- --- --- ---
+
+    function SelectCheating() {
+        document.getElementById("qmC").innerHTML = Cheating ? "C" : "?";
+        document.getElementById("qmG1").innerHTML = Cheating ? "G" : "?";
+        document.getElementById("qmG2").innerHTML = Cheating ? "G" : "?";
+        if (Mode > 0) {
+            document.getElementById("qm" + FirstChoice).innerHTML = "!";
+            if (Mode == 1) {
+                WriteMode1Text();
+            }
+        }
+        return true;
+    }
+
+    // --- --- --- --- --- --- --- --- --- ---
+
+    function WriteMode1Text() {
+        document.getElementById("Instruct").innerHTML = "Cliquez sur '!' pour garder votre premier choix ou '" + (Cheating ? (FirstChoice == "C" ? "G" : "C") : "?") + "' pour le changer";
+        return true;
+    }
+
+    const labels = [
+        'Victoire',
+        'Defaite'
+    ];
+    const colors = ["#74D900", "#FF4136"]
+
+    const keepData = {
+        labels: labels,
+        datasets: [{
+            data: [0,0],
+            backgroundColor: colors
+        }]
+    };
+
+    const changeData = {
+        labels: labels,
+        datasets: [{
+            data: [0,0],
+            backgroundColor: colors
+        }]
+    };
+
+    const configKeep = {
+        label: 'Stratégie garder',
+        type: 'doughnut',
+        data: keepData,
+        options: {}
+    };
+
+    const configChange = {
+        label: 'Stratégie changer',
+        type: 'doughnut',
+        data: changeData,
+        options: {}
+    };
+
+
+    const chartKeep = new Chart(
+        document.getElementById('chartKeep'),
+        configKeep
+    );
+
+    const chartChange = new Chart(
+        document.getElementById('chartChange'),
+        configChange
+    );
+
+
+    //-->
+</script>
+
+</body>
+</html>
